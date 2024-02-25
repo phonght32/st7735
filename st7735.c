@@ -238,6 +238,7 @@ typedef struct st7735 {
 	st7735_func_set_gpio 	set_cs;			/*!< Function set CS. Used in SPI mode */
 	st7735_func_set_gpio 	set_dc;			/*!< Function set DC. Used in SPI mode */
 	st7735_func_set_gpio 	set_rst;		/*!< Function set RST. Used in SPI mode */
+	st7735_func_set_gpio    set_bckl;       /*!< Function on/off LED backlight */
 	st7735_func_spi_send 	spi_send;		/*!< Function send SPI data */
 	st7735_func_delay 		delay; 			/*!< Function delay */
 	uint16_t 				pos_x;			/*!< Position x */
@@ -401,6 +402,7 @@ err_code_t st7735_set_config(st7735_handle_t handle, st7735_cfg_t config)
 	handle->set_cs = config.set_cs;
 	handle->set_dc = config.set_dc;
 	handle->set_rst = config.set_rst;
+	handle->set_bckl = config.set_bckl;
 	handle->spi_send = config.spi_send;
 	handle->delay = config.delay;
 	handle->pos_x = 0;
@@ -731,6 +733,38 @@ err_code_t st7735_get_position(st7735_handle_t handle, uint8_t *x, uint8_t *y)
 
 	*x = handle->pos_x;
 	*y = handle->pos_y;
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t st7735_set_bckl_on(st7735_handle_t handle)
+{
+	/* Check if handle structure is NULL */
+	if (handle == NULL)
+	{
+		return ERR_CODE_NULL_PTR;
+	}
+
+	if (handle->set_bckl != NULL)
+	{
+		handle->set_bckl(1);
+	}
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t st7735_set_bckl_off(st7735_handle_t handle)
+{
+	/* Check if handle structure is NULL */
+	if (handle == NULL)
+	{
+		return ERR_CODE_NULL_PTR;
+	}
+
+	if (handle->set_bckl != NULL)
+	{
+		handle->set_bckl(0);
+	}
 
 	return ERR_CODE_SUCCESS;
 }

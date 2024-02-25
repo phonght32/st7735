@@ -48,6 +48,7 @@ typedef struct {
 	st7735_func_set_gpio 	set_cs;			/*!< Function set CS. Used in SPI mode */
 	st7735_func_set_gpio 	set_dc;			/*!< Function set DC. Used in SPI mode */
 	st7735_func_set_gpio 	set_rst;		/*!< Function set RST. Used in SPI mode */
+	st7735_func_set_gpio    set_bckl;       /*!< Function on/off LED backlight */
 	st7735_func_spi_send 	spi_send;		/*!< Function send SPI data */
 	st7735_func_delay 		delay; 			/*!< Function delay */
 } st7735_cfg_t;
@@ -230,6 +231,28 @@ err_code_t st7735_set_position(st7735_handle_t handle, uint8_t x, uint8_t y);
  *      - Others:           Fail.
  */
 err_code_t st7735_get_position(st7735_handle_t handle, uint8_t *x, uint8_t *y);
+
+/*
+ * @brief   Turn on LED backlight.
+ *
+ * @param   handle Handle structure.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t st7735_set_bckl_on(st7735_handle_t handle);
+
+/*
+ * @brief   Turn off LED backlight.
+ *
+ * @param   handle Handle structure.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t st7735_set_bckl_off(st7735_handle_t handle);
 
 #ifdef __cplusplus
 }
